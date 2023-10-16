@@ -1,0 +1,110 @@
+
+*********************** How to install & start Elastic-search? ***********************
+
+Download the latest windows zip file from https://www.elastic.co/downloads/elasticsearch
+
+Extract the zip file at C:\elastic-stack\
+
+Add below properties inside /config/elasticsearch.yml
+
+	xpack.security.enabled: true
+
+	xpack.security.enrollment.enabled: true
+
+Delete the 'elasticsearch' directory if exists from C:\Users\%USER_ID%\AppData\Local\Temp. This step is run only 
+once i.e. during installation time only.
+
+cd C:\elastic-stack\elasticsearch-8.8.0\bin
+
+Run "elasticsearch.bat"
+
+Wait for few mins so that Elastic search service will be started properly. It will display the generated password for
+ the user 'elastic'. Copy that password & save it in your backup file.
+
+Now, run "localhost:9200" inside browser.
+
+Enter username & password as (elastic/generated_password). You should get elastic service details in JSON format inside
+ browser. It completes the Elastic Search installation.
+
+ 
+
+ 
+
+*********************** How to install & start Kibana? ***********************
+
+Download the latest windows zip file from https://www.elastic.co/downloads/kibana
+
+Extract the zip file at C:\elastic-stack\
+
+Edit kibana.yml & uncomment below properties:
+
+server.port: 5601
+
+elasticsearch.hosts: ["http://localhost:9200"]
+
+In order to access Elasticsearch from Kibana, we need to generate service token using elasticsearch service with below 
+command executed on elastic search bin directory.
+
+elasticsearch-service-tokens create elastic/kibana my-token
+
+Copy the newly generated token & add it inside kibana.yml as shown below:
+
+elasticsearch.serviceAccountToken: "paste_generated_token_here"
+
+Start the Kibana service using kibana.bat file. You need to wait for 3/4 minutes to start the Kibana service first time.
+
+Now, you can hit localhost:5601 & login with the user 'elastic'. If the login is successful, it means Kibana is installed properly.
+
+ 
+
+ 
+
+*********************** How to install & start Logstash? ***********************
+
+Download the latest windows zip file from https://www.elastic.co/downloads/logstash
+
+Extract the zip file at C:\elastic-stack\
+
+Create a new file config\logstash-sample.conf with below contents.
+
+input {
+
+  stdin {
+
+  }
+
+}
+
+output {
+
+ 
+
+  stdout {
+
+    codec => rubydebug
+
+  }
+
+ 
+
+  elasticsearch {
+
+    hosts => ["http://localhost:9200"]
+
+    index => "bankapp"
+
+    user => "elastic"
+
+    password => "your_password"
+
+  }
+
+}
+
+Start the logstash with the command: 'logstash -f ./config/logstash-sample.conf --config.reload.automatic'. You need to wait for few
+ minutes to start the logstash properly.
+
+
+Download Elasticsearch
+
+Download Elasticsearch or the complete Elastic Stack (formerly ELK stack) for free and start searching and analyzing in minutes with Elastic.

@@ -1,0 +1,254 @@
+Inverted Index in elastic search  CRUD
+
+ 
+
+https://www.youtube.com/watch?v=ajNfOPeWiAY
+
+ 
+
+ 
+
+Best resources to learn the Elastic Stack for beginners:
+
+ 
+
+Elastic documentation: The Elastic documentation is the most comprehensive resource for learning the Elastic Stack. It covers all aspects of the Elastic Stack, from installation and configuration to querying and searching.
+Elastic tutorials: The Elastic tutorials provide hands-on experience with the Elastic Stack. They cover a variety of topics, such as indexing data, creating dashboards, and writing queries.
+Elastic blog: The Elastic blog is a great place to learn about the latest Elastic Stack news and features. It also includes a variety of tutorials and articles on how to use the Elastic Stack.
+Elastic community forums: The Elastic community forums are a great place to ask questions and get help from other Elastic users.
+Elastic training: Elastic offers a variety of training courses on the Elastic Stack, from beginner to advanced.
+In addition to these resources, there are a number of third-party resources that can be helpful for learning the Elastic Stack. Here are a few examples:
+
+ 
+
+Books: There are a number of books available on the Elastic Stack. Some popular options include:
+Elasticsearch: The Definitive Guide by Clinton Gormley and Zach Holman
+Learning Elasticsearch by Shay Banon
+Elasticsearch in Action by Marko Harjula
+Courses: There are a number of online courses available on the Elastic Stack. Some popular options include:
+Complete Elasticsearch Masterclass with Logstash and Kibana by Kirill Eremenko (Udemy)
+Elasticsearch Essential Training by James Turnbull (LinkedIn Learning)
+Learning the Elastic Stack by Jeff Dean (LinkedIn Learning)
+I recommend that beginners start by reading the Elastic documentation and completing the Elastic tutorials. Once you have a basic understanding of the Elastic Stack, you can explore the other resources listed above to learn more advanced topics.
+
+ 
+
+ 
+
+Elastic Stack 
+----------
+
+ 
+
+ELK
+
+ 
+
+ 
+
+Kibana  CRUD Oprations
+
+ 
+
+ 
+
+Assessment  MCQ Inverted Index
+
+ 
+
+ 
+
+Java (Spring Boot)   Application  Rest ENDPOINT   ->  Elastic search
+
+ 
+
+DB   
+
+ 
+
+ 
+
+kibana.yml
+
+ 
+
+port 5601
+
+ 
+
+host
+
+ 
+
+ 
+
+Kibana    ElasticSearch   Dev  cluster ->  nodes
+
+ 
+
+ 
+
+shard
+
+ 
+
+Primary Shards    index
+
+ 
+
+Replica Shard
+
+ 
+
+ 
+
+ 
+
+Inverted Index
+
+ 
+
+ 
+
+ 
+
+GET _cat/indices?v=true
+
+ 
+
+GET _cat/indices
+
+ 
+
+ 
+
+PUT accounts
+
+ 
+
+GET  accounts/_search
+
+ 
+
+POST  accounts/_doc/1
+{
+  "name": "Ram",
+  "balence":20000
+}
+
+ 
+
+POST  accounts/_doc/2
+{
+  "name": "Laxman",
+  "balence":30000
+}
+
+ 
+
+DELETE accounts/_doc/2
+
+ 
+
+GET accounts/_mapping
+
+ 
+
+GET accounts/_search
+{
+  "query": {
+     "match": {
+       "balence": "20000"
+     }
+
+  }
+}
+
+ 
+
+ 
+
+ 
+
+POST  accounts/
+{
+  "name": "Laxman",
+  "balence":30000,
+  "age":28
+}
+
+ 
+
+ 
+
+{
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "products",
+                "_id": "2",
+                "_score": 1.0,
+                "_source": {
+                    "_class": "com.example.springbootelasticsearchexample.entity.Product",
+                    "id": 2,
+                    "name": "IPad",
+                    "description": "Wonderful",
+                    "quantity": 100,
+                    "price": 60000.0
+                }
+            }
+        ]
+    }
+}
+
+ 
+
+ 
+
+{
+    "took": 0,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "products",
+                "_id": "1",
+                "_score": 1.0,
+                "_source": {
+                    "_class": "com.example.springbootelasticsearchexample.entity.Product",
+                    "id": 1,
+                    "name": "MacBookPro",
+                    "description": "Wonderful",
+                    "quantity": 1,
+                    "price": 90000.5
+                }
+            }
+        ]
+    }
+}
+
+ 

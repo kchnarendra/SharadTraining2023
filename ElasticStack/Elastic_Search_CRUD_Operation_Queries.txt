@@ -1,0 +1,77 @@
+
+************************* Elastic Search CRUD Operation Queries *************************
+
+GET _cat/indices (shows list of all indexes in elastic search database)
+GET _cat/indices?v=true (shows list of indexes with more verbose output)
+GET _cat/indices?help (Displays meaning of every information)
+
+CRUD operations on Index:
+
+Create an empty index:
+PUT accounts
+
+Create new index & insert new document-
+POST accounts/_doc/1 {
+	"name": "Ivan",
+	"balance": 20000
+}
+
+Read all documents from index:
+GET accounts/_search
+
+Update an existing document:
+POST accounts/_update/1 {
+	"doc": {
+		"name": "Tom"
+	}
+}
+
+Insert new document:
+POST accounts/_doc/2 {
+	"name": "Jerry",
+	"balance": 40000
+}
+
+Delete a document:
+DELETE accounts/_doc/1
+
+Read index with where clause:
+GET accounts/_search?q=name:Tom
+
+To find the mappings i.e. type of every field in the document:
+GET accounts/_mapping
+
+Add type to your fields:
+POST accounts/_mapping
+{
+	"properties": {
+		"name": { "type": "text" },
+		"balance": { "type": "integer" }
+	}
+}
+
+Search documents by where balance is equals to 20000:
+GET accounts/_search
+{
+	"query": {
+		"match": {
+			"balance": "20000"
+		}
+	}
+}
+
+Search documents by where balance is greater than or equals to 20000:
+GET accounts/_search
+{
+	"query": {
+	  "range": {
+		  "balance": {
+			  "gte": "20000"
+  		}
+	  }
+	}
+}
+
+
+Graph visualization:
+Home > Dashboard > Create dashboard > Create Visualization > 
